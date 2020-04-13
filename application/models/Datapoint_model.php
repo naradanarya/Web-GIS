@@ -37,7 +37,7 @@ class Datapoint_model extends CI_Model {
         return $this->db->get()->row();
     }
 
-    public function edit($data)
+    public function update($data)
     {
         
         $this->db->where('id', $data['id']);
@@ -46,14 +46,14 @@ class Datapoint_model extends CI_Model {
         
     }
 
-    // public function delete($id)
-    // {
+    public function delete($id)
+    {
         
-    //     $this->db->where('id', $id);
-    //     $this->db->delete('tbl_penyebaran');
+        $this->db->where('id', $id);
+        $this->db->delete('datapoint');
         
         
-    // }
+    }
 
 }
 

@@ -26,7 +26,7 @@
                                             <td><?= $value->latitude ?></td>
                                             <td><?= $value->longitude ?></td>
                                             <td>
-                                                <a href="<?= base_url('backend/datapoint/edit/'.$value->id) ?>" class="btn btn-xs btn-success">Edit</a>
+                                                <a href="<?= base_url('backend/datapoint/update/'.$value->id) ?>" class="btn btn-xs btn-success">Edit</a>
                                                 <a href="<?= base_url('backend/datapoint/delete/'.$value->id) ?>" class="btn btn-xs btn-danger">Delete</a>
                                             </td>
                                         </tr>

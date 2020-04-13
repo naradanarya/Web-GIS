@@ -81,7 +81,7 @@ class Datapoint extends CI_Controller {
         $this->load->view('backend/layout/wrapper', $data, FALSE);
 	}
 	
-	public function edit($id)
+	public function update($id)
     {
 
 		$detail = $this->datapoint_model->detail($id);
@@ -93,52 +93,39 @@ class Datapoint extends CI_Controller {
             $data = array(
 				'title' => 'Data SPBU',
 				'detail' => $detail,
-				'content' 	=> 'backend/datapoint/tabel'
+				'content' 	=> 'backend/datapoint/edit'
 			);
     
             $this->load->view('backend/layout/wrapper', $data, FALSE);
             
         } else {
 
-            if ( $this->input->post('status') == "Normal Aktif") {
-                $radius=300;
-                $warna='blue';
-            }
-            if ( $this->input->post('status') == "Waspada") {
-                $radius=3000;
-                $warna='green';
-            }
-            if ( $this->input->post('status') == "Siaga") {
-                $radius=10000;
-                $warna='yellow';
-            }
-            if ( $this->input->post('status') == "Awas") {
-                $radius=20000;
-                $warna='red';
-            }
-
             $data = array(
                 'id' => $id,
-                'nama_gunung' =>  $this->input->post('nama_gunung'),
+                'nama_spbu' =>  $this->input->post('nama_spbu'),
                 'keterangan' =>  $this->input->post('keterangan'),
-                'radius' =>  $radius,
                 'latitude' =>  $this->input->post('latitude'),
                 'longitude' =>  $this->input->post('longitude'),
-                'warna' =>  $warna,
-                'status' => $this->input->post('status')
-                
-
             );
 
-            $this->m_home->update($data);
+            $this->datapoint_model->update($data);
             
             $this->session->set_flashdata('pesan', 'Data Berhasil Diedit :)');
             
-            redirect('home/tampil');
+            redirect('backend/datapoint/tabel');
             
             
 		}
 	}
 
+	public function delete($id)
+    {
+
+        $this->datapoint_model->delete($id);
+            
+        $this->session->set_flashdata('pesan', 'Data Berhasil Dihapus.');
+        
+        redirect('backend/datapoint/tabel');
+    }
 
 }

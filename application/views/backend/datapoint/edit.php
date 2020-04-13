@@ -10,28 +10,28 @@
 
         
         
-        echo form_open('backend/datapoint/edit/'.$data->id); 
+        echo form_open('backend/datapoint/update/'.$detail->id); 
         
         
         ?>
         <div class="form-group">
             <label>Nama SPBU</label>
-            <input name="nama_spbu" value="<?= $data->nama_spbu ?>" placeholder="Masukan Nama Gunung" class="form-control" required>
+            <input name="nama_spbu" value="<?= $detail->nama_spbu ?>" placeholder="Masukan Nama Gunung" class="form-control" required>
         </div>
         <div class="form-group">
             <label>Keterangan</label>
-            <textarea name="keterangan" placeholder="Masukan Keterangan" id="" cols="30" rows="10" class="form-control"><?= $data->keterangan ?></textarea>
+            <textarea name="keterangan" placeholder="Masukan Keterangan" id="" cols="30" rows="10" class="form-control"><?= $detail->keterangan ?></textarea>
         </div>
         <div class="col-md-6">
         <div class="form-group">
             <label>Latitude</label>
-            <input name="latitude" value="<?= $data->latitude ?>" id="Latitude" placeholder="Masukan Latitude" class="form-control" required readonly>
+            <input name="latitude" value="<?= $detail->latitude ?>" id="Latitude" placeholder="Masukan Latitude" class="form-control" required readonly>
         </div>
         </div>
         <div class="col-md-6">
         <div class="form-group">
             <label>Longitude</label>
-            <input name="longitude" value="<?= $data->longitude ?>" id="Longitude" placeholder="Masukan Longitude" class="form-control" required readonly>
+            <input name="longitude" value="<?= $detail->longitude ?>" id="Longitude" placeholder="Masukan Longitude" class="form-control" required readonly>
         </div>
         </div>
         
@@ -47,9 +47,9 @@
         <script>
 var curLocation=[0,0];
 if (curLocation[0]==0 && curLocation[1]==0) {
-	curLocation =[-7.2780317,109.9775643];	
+	curLocation =[-6.1779987, 106.8272603];	
 }
-var map = L.map('map').setView([-7.2780317,109.9775643], 6);
+var map = L.map('map').setView([-6.1779987, 106.8272603], 6);
 
 L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
 
