@@ -1,5 +1,6 @@
 <div class="row">
                 <div class="col-md-12">
+                <a href="<?= base_url('backend/download/') ?>" class="btn btn-l btn-success">Download Datasheet</a><hr>
                     <!-- Advanced Tables -->
                     <div class="panel panel-default">
                         <div class="panel-body">

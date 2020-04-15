@@ -27,6 +27,15 @@ $.getJSON(base_url+"backend/datapoint/tampil_json", function(data){
     .openPopup();
     });
   });
-
+var polygon = L.polygon([
+    [-6.246786, 106.995416],
+    [-6.241386, 106.999416],
+    [-6.242286, 106.993416]
+]).addTo(map);
+var icon_spbu2 = L.icon({
+                iconUrl: base_url+'assets/image/spbu.png',
+                iconSize: [30,30]
+        });
+var marker = L.marker([-6.2436061, 106.9958863], {icon:icon_spbu2}).addTo(map);
 
  </script>
