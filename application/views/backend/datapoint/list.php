@@ -2,7 +2,7 @@
 
 <script type="text/javascript">
 
-var map = L.map('map').setView([-6.1779987, 106.8272603], 7);
+var map = L.map('map').setView([-6.1779987, 106.8272603], 12);
 var base_url ="<?=base_url() ?>"
 
 
@@ -27,15 +27,27 @@ $.getJSON(base_url+"backend/datapoint/tampil_json", function(data){
     .openPopup();
     });
   });
-var polygon = L.polygon([
-    [-6.246786, 106.995416],
-    [-6.241386, 106.999416],
-    [-6.242286, 106.993416]
-]).addTo(map);
-var icon_spbu2 = L.icon({
-                iconUrl: base_url+'assets/image/spbu.png',
-                iconSize: [30,30]
+
+  function groupClick(event){
+          alert("Clicked on marker" +event.layer.id);
+}
+        $.getJSON(base_url+"assets/geojson/map.geojson", function(data){
+                geoLayer = L.geoJson(data, {
+                        style: function(feature){
+                                return{
+                                        fillOpacity: 0.8,
+                                        weight:1,
+                                        opacity:1,
+                                        color:"#ff0000"
+
+                                };
+                        },
+                        onEachFeature: function(feature, layer){
+                                var latt=parseFloat(feature.properties.latitude);
+                        
+                        }
+                }).addTo(map);
+
         });
-var marker = L.marker([-6.2436061, 106.9958863], {icon:icon_spbu2}).addTo(map);
 
  </script>

@@ -15,6 +15,8 @@ class Konfigurasi extends CI_Controller {
 	}
 	public function index()
 	{	
+		if($this->session->userdata('akses_level') == 'admin'){
+
         // AMBIL DATA
 		$konfigurasi = $this->konfigurasi_model->detail();
 
@@ -22,12 +24,17 @@ class Konfigurasi extends CI_Controller {
 						'konfigurasi'		=>	$konfigurasi,
 						'content' 		    =>	'backend/konfigurasi/detail');
 						
-		$this->load->view('backend/layout/wrapper', $data, FALSE);
+        $this->load->view('backend/layout/wrapper', $data, FALSE);
+    }else{
+
+		redirect(base_url('backend/login'), 'refresh');
+	}
 
 	}
 	
 	public function edit($setting_id)
     {	// Ambil data Konfigurasi
+		if($this->session->userdata('akses_level') == 'admin'){
         
         $konfigurasi = $this->konfigurasi_model->detail($setting_id);
 		// Validasi Input
@@ -87,6 +94,10 @@ class Konfigurasi extends CI_Controller {
                             'content' 		=>	'backend/konfigurasi/edit');
             
             $this->load->view('backend/layout/wrapper', $data, FALSE);
+        }else{
+
+            redirect(base_url('backend/login'), 'refresh');
+        }
                     
                 }
 		

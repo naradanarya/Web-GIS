@@ -36,7 +36,7 @@ class Datapoint extends CI_Controller {
 	// INPUT
 	public function tambah()
     {
-             
+       if (($this->session->userdata('akses_level') == 'admin') || ($this->session->userdata('akses_level') == 'operator')){
         $this->form_validation->set_rules('nama_spbu', 'Nama SPBU', 'required');
         
 
@@ -55,6 +55,7 @@ class Datapoint extends CI_Controller {
                 'keterangan' =>  $this->input->post('keterangan'),
                 'latitude' =>  $this->input->post('latitude'),
                 'longitude' =>  $this->input->post('longitude'),
+                'username' =>  $this->session->userdata('username'),
 
             );
 
@@ -62,10 +63,13 @@ class Datapoint extends CI_Controller {
             
             $this->session->set_flashdata('pesan', 'Data Berhasil Disimpan :)');
             
-            redirect('backend/datapoint');
-            
-            
+            redirect('backend/datapoint/tambah');          
         }
+
+    }else{
+
+            redirect(base_url('backend/login'), 'refresh');
+        }  
 	}
 	
 	public function tabel()
@@ -83,7 +87,7 @@ class Datapoint extends CI_Controller {
 	
 	public function update($id)
     {
-
+        if (($this->session->userdata('akses_level') == 'admin') || ($this->session->userdata('akses_level') == 'operator')){
 		$detail = $this->datapoint_model->detail($id);
 
         $this->form_validation->set_rules('nama_spbu', 'Nama SPBU', 'required');
@@ -106,6 +110,8 @@ class Datapoint extends CI_Controller {
                 'keterangan' =>  $this->input->post('keterangan'),
                 'latitude' =>  $this->input->post('latitude'),
                 'longitude' =>  $this->input->post('longitude'),
+                'username' =>  $this->session->userdata('username'),
+
             );
 
             $this->datapoint_model->update($data);
@@ -113,19 +119,28 @@ class Datapoint extends CI_Controller {
             $this->session->set_flashdata('pesan', 'Data Berhasil Diedit :)');
             
             redirect('backend/datapoint/tabel');
-            
-            
-		}
+        }
+    }else{
+
+        redirect(base_url('backend/login'), 'refresh');
+    }    
+        
 	}
 
 	public function delete($id)
     {
-
+        if (($this->session->userdata('akses_level') == 'admin') || ($this->session->userdata('akses_level') == 'operator')){
         $this->datapoint_model->delete($id);
             
         $this->session->set_flashdata('pesan', 'Data Berhasil Dihapus.');
         
         redirect('backend/datapoint/tabel');
+    }else{
+
+        redirect(base_url('backend/login'), 'refresh');
+    }   
+
     }
+    
 
 }

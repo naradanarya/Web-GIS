@@ -19,7 +19,8 @@ class Account extends CI_Controller {
 	
 
 	public function index()
-	{	
+	{	if($this->session->userdata('akses_level') == 'admin'){
+
 		$users = $this->user_model->listing();
 
 		$data = array ( 'title'		=>	'Data User',
@@ -28,11 +29,16 @@ class Account extends CI_Controller {
 						
 		$this->load->view('backend/layout/wrapper', $data, FALSE);
 
+	}else{
+
+		redirect(base_url('backend/login'), 'refresh');
+	}
+
 	}
 
 	public function add()
 	{		
-
+	if($this->session->userdata('akses_level') == 'admin'){
 		// Validasi Input
 		$valid = $this->form_validation;
 
@@ -58,57 +64,61 @@ class Account extends CI_Controller {
 				// Proses Uplaod
 				if ( ! $this->upload->do_upload('image')){				
 						
-			// End Validation
-			
-			$data = array ( 'title'		=>	'Tambah User',
-							'error'		=>	$this->upload->display_errors(),
-							'content' 		=>	'backend/account/add');
-			
-			$this->load->view('backend/layout/wrapper', $data, FALSE);
-			// Masuk Database
-			}else{
-							$upload_gambar = array('upload_data' => $this->upload->data());
-							// create thumbnail
-							$config['image_library'] 	= 'gd2';
-							$config['source_image'] 	= './assets/upload/profile/'.$upload_gambar['upload_data']['file_name'];
-							// Lokasi thumbnail new
-							$config['new_image'] 		= './assets/upload/profile/thumbs/';
-							$config['create_thumb'] 	= TRUE;
-							$config['maintain_ratio'] 	= TRUE;
-							$config['width']         	= 120; //pixel
-							$config['height']       	= 120; //pixel
-							$config['thumb_marker']		= '';
-	
-							$this->load->library('image_lib', $config);
-	
-							$this->image_lib->resize();
-						// end create thumbnail
-	
-						$i = $this->input;
-						$data = array (	
-											'username'	=>	$i->post('username'), 
-											'password'	=>	SHA1($i->post('password')),
-											'akses_level' => $i->post('akses_level'),
+				// End Validation
+				
+				$data = array ( 'title'		=>	'Tambah User',
+								'error'		=>	$this->upload->display_errors(),
+								'content' 		=>	'backend/account/add');
+				
+				$this->load->view('backend/layout/wrapper', $data, FALSE);
+				// Masuk Database
+				}else{
+								$upload_gambar = array('upload_data' => $this->upload->data());
+								// create thumbnail
+								$config['image_library'] 	= 'gd2';
+								$config['source_image'] 	= './assets/upload/profile/'.$upload_gambar['upload_data']['file_name'];
+								// Lokasi thumbnail new
+								$config['new_image'] 		= './assets/upload/profile/thumbs/';
+								$config['create_thumb'] 	= TRUE;
+								$config['maintain_ratio'] 	= TRUE;
+								$config['width']         	= 120; //pixel
+								$config['height']       	= 120; //pixel
+								$config['thumb_marker']		= '';
+		
+								$this->load->library('image_lib', $config);
+		
+								$this->image_lib->resize();
+							// end create thumbnail
+		
+							$i = $this->input;
+							$data = array (	
+												'username'	=>	$i->post('username'), 
+												'password'	=>	SHA1($i->post('password')),
+												'akses_level' => $i->post('akses_level'),
 
-											'image'	=>	$upload_gambar['upload_data']['file_name'], 
-					);
-					
-						$this->user_model->add($data);
-						$this->session->set_flashdata('sukses', 'Data User telah di ditambahkan!');
-						redirect(base_url('backend/account'), 'refresh');
-	
-			}}
+												'image'	=>	$upload_gambar['upload_data']['file_name'], 
+						);
+						
+							$this->user_model->add($data);
+							$this->session->set_flashdata('sukses', 'Data User telah di ditambahkan!');
+							redirect(base_url('backend/account'), 'refresh');
+				}
+			}
 	
 			// End Masuk database
 			$data = array ( 'title'			=>	'Tambah User',
 							'content' 		=>	'backend/account/add');
 			
 			$this->load->view('backend/layout/wrapper', $data, FALSE);
+	}else{
+
+		redirect(base_url('backend/login'), 'refresh');
 	}
+}
 
 	public function edit($id_user)
 	{		
-
+		if($this->session->userdata('akses_level') == 'admin'){
 		$users = $this->user_model->detail($id_user);
 		// Validasi Input
 		$valid = $this->form_validation;
@@ -207,10 +217,15 @@ class Account extends CI_Controller {
 							'content' 		=>	'backend/account/edit');
 			
 			$this->load->view('backend/layout/wrapper', $data, FALSE);
+		}else{
+
+			redirect(base_url('backend/login'), 'refresh');
+		}
 	}
 
 	public function delete($id_user)
 	{
+		if($this->session->userdata('akses_level') == 'admin'){
 
 		if ($id_user == $this->session->id_user) {
 
@@ -235,6 +250,10 @@ class Account extends CI_Controller {
 			redirect(base_url('backend/account'), 'refresh');
 
 		}
+	}else{
+
+		redirect(base_url('backend/login'), 'refresh');
+	}
 			
 	}
 

@@ -1,11 +1,8 @@
-<div class="col-md-5">
+<div class="col-md-12">
 <div id="map" style="height: 500px"></div>
 
-</div>
-
-
 <div class="col-md-7">
-
+<br>
         <?php 
         
         if ( $this->session->flashdata('pesan')) 
@@ -21,6 +18,7 @@
         
         
         ?>
+        <br>
         <div class="form-group">
             <label>Nama SPBU</label>
             <input name="nama_spbu" placeholder="Masukan Nama SPBU" class="form-control" required>
@@ -46,16 +44,16 @@
             <button type="submit" class="btn btn-primary" >Save</button>
             <button type="reset" class="btn btn-success" >Reset</button>
         </div>
+ </div>
+
         <?php echo form_close() ?>
-
-
 
         <script>
 var curLocation=[0,0];
 if (curLocation[0]==0 && curLocation[1]==0) {
 	curLocation =[-6.1779987, 106.8272603];	
 }
-var map = L.map('map').setView([-6.1779987, 106.8272603], 7);
+var map = L.map('map').setView([-6.1779987, 106.8272603], 12);
 
 L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
 
